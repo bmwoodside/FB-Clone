@@ -17,6 +17,7 @@ const Nav = (props) => {
                 <Link to="#"><button className="btn btn-info" id="watch">watch</button></Link>
                 <Link to="#"><button className="btn btn-info" id="marketplace">marketplace</button></Link>
                 <Link to="#"><button className="btn btn-info" id="groups">groups</button></Link>
+                <Link to="#"><button className="btn btn-info" id="news">news</button></Link>
             </div>
 
             <div className="nav-right">

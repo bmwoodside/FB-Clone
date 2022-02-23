@@ -34,6 +34,48 @@ const Main = (props) => {
             </div>
 
             <div className="body-nav-center">
+                <div className="story-card-container">
+                    <div className="story-card" id="my-story-card">
+                        <img src="" alt="" />
+                        <p>+</p>
+                        <p>Create Story</p>
+                    </div>
+                    <button className="btn btn-info story-card">pic</button>
+                    <button className="btn btn-info story-card">pic</button>
+                    <button className="btn btn-info story-card">pic</button>
+                    <button className="btn btn-info story-card">pic</button>
+                    <button className="btn btn-info story-card">pic</button>
+                </div>
+
+                <div className="status-update-container">
+                    <div className="status-update-top">
+                        ico<img src="" alt="" /> <input type="text" placeholder="What's on your mind, Name"/>
+                    </div>
+
+                    <hr />
+
+                    <div className="status-update-bottom">
+                        <div className="status-update-bottom-button">
+                            ico <img />
+                            <span>Live Video</span>
+                        </div>
+
+                        <div className="status-update-bottom-button">
+                            ico <img />
+                            <span>Photo/Video</span>
+                        </div>
+
+                        <div className="status-update-bottom-button">
+                            ico <img />
+                            <span>Feeling/Activity</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="content-card">
+                    
+                </div>
+
                 <h1>Placeholder Text Here!</h1>
             </div>
 

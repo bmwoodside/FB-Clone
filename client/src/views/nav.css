@@ -1,8 +1,19 @@
 .nav-wrapper {
     display: flex;
     justify-content: space-between;
+    height: 3.5rem;
 }
 
 #searchbar {
     border-radius: 8px;
+}
+
+/* .center-icons {
+    display: flex;
+    justify-content: space-around;
+} */
+
+.center-icons button {
+    height: 3.5rem;
+    /* width: 7rem; */
 }
