@@ -11,9 +11,10 @@ const UserPostSchema = new mongoose.Schema ({
         minlength: [1, "Post must contain at least 1 character"],
     },
     // userPostMediaContent is if user wants to add an image/upload a video...
-    userPostMediaContent: {
-        type: Mixed
-    },
+    // this is currently broken and errors saying "Mixed is undefined"...
+    // userPostMediaContent: {
+    //     type: Mixed
+    // },
     userPostLikedUsers: {
         type: Array
     },

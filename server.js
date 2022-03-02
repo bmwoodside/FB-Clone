@@ -14,5 +14,6 @@ app.use(cors());
 
 // this sends our app over to the user routes
 require("./server/routes/user.routes")(app);
+require("./server/routes/userPost.routes")(app);
 
 app.listen(port, ()=>console.log(`running on ${port} is new port!`));

@@ -37,6 +37,6 @@ module.exports.updateUser = (req, res) => {
 // delete user
 module.exports.deleteUser = (req, res) => {
     User.deleteOne({ _id: req.params._id })
-        .then(deleteConfirmation => response.json(deleteConfirmation))
+        .then(deleteConfirmation => res.json(deleteConfirmation))
         .catch(err => res.json(err));
 }

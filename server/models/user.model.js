@@ -13,9 +13,10 @@ const UserSchema = new mongoose.Schema({
     },
     // Implement minimum age requirement using their birthday
     // for now we're just storing the info - need to implement age checking
-    userBirthday: {
-        type: Date, // this type expected syntax is 'yyyy-mm-dd'
-    },
+    // ***TEMP DISABLED*** - decide how to implement this (MUI? Self-Coded/validated?)
+    // userBirthday: {
+    //     type: Date, // this type expected syntax is 'yyyy-mm-dd'
+    // },
     userDisplayName: {
         type: String
     }
