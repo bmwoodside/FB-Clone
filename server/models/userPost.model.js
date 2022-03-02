@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const UserPostsSchema = new mongoose.Schema ({
+const UserPostSchema = new mongoose.Schema ({
     userPostedBy: {
         type: String,
         required: [true, "ID posted_by requried."],
@@ -23,4 +23,4 @@ const UserPostsSchema = new mongoose.Schema ({
     }
 }, { timestamps: true });
 
-module.exports.UserPost = mongoose.model('UserPost', UserPostsSchema);
+module.exports.UserPost = mongoose.model('UserPost', UserPostSchema);
