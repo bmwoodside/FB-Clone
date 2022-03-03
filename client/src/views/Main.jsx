@@ -2,9 +2,21 @@ import { Link } from "react-router-dom";
 import './main.css'
 import NavLeft from "../components/NavLeft";
 import NavRight from "../components/NavRight";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
 
 const Main = (props) => {
+    const [allPosts, setAllPosts] = useState([]);
+
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/posts/getall`)
+            .then(res => {
+                console.log(res.data);
+                setAllPosts(res.data);
+            })
+            .catch(err => console.log(err));
+    }, [])
 
 
     return (
@@ -158,6 +170,17 @@ const Main = (props) => {
                 </div>
 
                 <h1>Placeholder Text Here!</h1>
+                <h4>Test Mapping Data follows:</h4>
+
+                <ul>
+                    {allPosts.map((onePost, i) =>
+                        <li key={i}>
+                            {onePost["userPostedBy"]}:
+                            <p>{ onePost["userPostContent"] }</p>
+                            <p>Likes: { onePost["userPostLikedUsers"].length }</p>
+                        </li>
+                    )}
+                </ul>
             </div>
 
             <NavRight />
