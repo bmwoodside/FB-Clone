@@ -1,6 +1,11 @@
+/* * {
+    background-color: #18191a;
+} */
+
 .wrapper {
     display: flex;
     justify-content: space-between;
+    padding-top: 3.5rem;
 }
 
 /* begin nav-left section */

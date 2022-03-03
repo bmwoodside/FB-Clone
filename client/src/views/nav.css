@@ -2,6 +2,13 @@
     display: flex;
     justify-content: space-between;
     height: 3.5rem;
+    position: fixed;
+    width: 100%;
+    /* background-color: #242526; */ /* this is the right one*/
+    background-color: antiquewhite; /*delete me. testing only*/
+    z-index: 1;
+    align-items: center;
+    border-bottom: 1px solid #3a3b3c;
 }
 
 #searchbar {
