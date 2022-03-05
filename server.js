@@ -16,4 +16,4 @@ app.use(cors());
 require("./server/routes/user.routes")(app);
 require("./server/routes/userPost.routes")(app);
 
-app.listen(port, ()=>console.log(`running on ${port} is new port!`));
+app.listen(port, ()=>console.log(`server running on port ${port}`));
