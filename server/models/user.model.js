@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
             message: "Please enter a valid email"
         }
     },
-    userPassword: { // oh god how do I implement BCrypt here?
+    userPassword: {
         type: String,
         required: [true, "Password is required."],
         minlength: [3, "Password must be at least 3 characters long."]

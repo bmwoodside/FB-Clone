@@ -3,11 +3,13 @@ const { User } = require('../models/user.model');
 
 // Create new User
 module.exports.createUser = (req, res) => {
-    const { userEmail, userPassword, userBirthday } = req.body;
+    const { firstName, lastName, userEmail, userPassword, confirmPassword } = req.body;
     User.create({
+        firstName,
+        lastName,
         userEmail,
         userPassword,
-        userBirthday
+        confirmPassword
     })
         .then(user => res.json(user))
         .catch(err => res.json(err));
@@ -15,7 +17,7 @@ module.exports.createUser = (req, res) => {
 
 // get all users
 module.exports.getAllUsers = (req, res) => {
-    User.find({}).sort([[ 'userEmail', -1]])
+    User.find().sort([[ 'userEmail', -1]])
         .then(users => res.json(users))
         .catch(err => res.json(err));
 }
