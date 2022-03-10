@@ -3,13 +3,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Main from './views/Main';
 import Nav from './views/Nav';
+import LoginForm from './components/LoginForm';
 
 
 function App() {
   return (
     <BrowserRouter>
 
-      <Nav />
+      {/* <Nav /> */}
       
       <Switch>
         
@@ -19,7 +20,12 @@ function App() {
         </Route>
 
 
+        <Route exact path="/test">
+          <LoginForm />
+        </Route>
+
       </Switch>
+
     </BrowserRouter>
   );
 }
