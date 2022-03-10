@@ -14,6 +14,7 @@ function App() {
       <Switch>
         
         <Route exact path="/">
+          {/* if user cookie logged in display content, else display register/login */}
           <Main />
         </Route>
 

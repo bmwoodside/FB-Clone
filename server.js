@@ -1,15 +1,16 @@
 const express = require("express");
+const mongoose = require('mongoose');
+const cors = require("cors");
+require('dotenv').config();
+
 const app = express();
 const port = 8000;
-
-const mongoose = require('mongoose');
 
 // This will fire our mongoose.connect statement to initialize our database connection
 require("./server/config/mongoose.config");
 
 app.use(express.json(), express.urlencoded({extended:true}));
 
-const cors = require("cors");
 app.use(cors());
 
 // this sends our app over to the user routes
