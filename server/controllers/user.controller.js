@@ -1,18 +1,66 @@
 const { response, request } = require('express');
 const { User } = require('../models/user.model');
+const jwt = require('jsonwebtoken');
 
 // Create new User
-module.exports.createUser = (req, res) => {
-    const { firstName, lastName, userEmail, userPassword, confirmPassword } = req.body;
-    User.create({
-        firstName,
-        lastName,
-        userEmail,
-        userPassword,
-        confirmPassword
-    })
-        .then(user => res.json(user))
+module.exports.register = (req, res) => {
+    // const { firstName, lastName, userEmail, userPassword, confirmPassword } = req.body;
+    // User.create({
+    //     firstName,
+    //     lastName,
+    //     userEmail,
+    //     userPassword,
+    //     confirmPassword
+    // })
+    User.create(req.body)
+        // .then(user => res.json(user))
+        .then(user => {
+            const userToken = jwt.sign({
+                id: user._id
+            }, process.env.SECRET_KEY);
+
+            res
+                .cookie("usertoken", userToken, process.env.SECRET_KEY, {
+                    httpOnly: true
+                })
+                .json({ msg: "success!", user: user });
+        })
         .catch(err => res.json(err));
+}
+
+// Login
+module.exports.login = async (req, res) => {
+    const user = await User.findOne({ userEmail: req.body.userEmail });
+
+    if (user === null) {
+        // only true when user email not registered in database
+        return res.sendStatus(400);
+    }
+
+    //only makes it here if we found a user by their email
+    const correctPassword = await bcrypt.compare(req.body.userPassword, user.userPassword);
+
+    if (!correctPassword) {
+        // password doesn't match database
+        return res.sendStatus(400);
+    }
+
+    // if passwords matched, create user token
+    const userToken = jwt.sign({
+        id: user._id
+    }, process.env.SECRET_KEY);
+
+    res
+        .cookie("usertoken", userToken, process.env.SECRET_KEY, {
+            httpOnly: true
+        })
+        .json({ msg: "success!"});
+}
+
+//Logout
+module.exports.logout = (req, res) => {
+    res.clearCookie('usertoken');
+    res.sendStatus(200);
 }
 
 // get all users
