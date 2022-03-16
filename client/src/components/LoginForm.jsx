@@ -7,6 +7,7 @@ import axios from "axios";
 const LoginForm = (props) => {
     const history = useHistory();
     const [tempLogin, setTempLogin] = useState({});
+    const [loginErrors, setLoginErrors] = useState({});
 
     // state for handling Modal component.
     const [show, setShow] = useState(false);
@@ -23,9 +24,12 @@ const LoginForm = (props) => {
     const handleLogin = (e) => {
         // validate then axios call to submit.
         e.preventDefault()
-        // axios.get("http://localhost:8000/api/users/:_id", tempLogin)
-        axios.get("http://localhost:8000/api/users/login", tempLogin)
-            .then(res => console.log(res))
+        console.log(tempLogin)
+        axios.post("http://localhost:8000/api/users/login", tempLogin, {withCredentials:true})
+            .then(res => {
+                console.log("response when logging in", res)
+                setLoginErrors(res.data)
+            })
             .catch(err => console.log("get account error", err))
 
         // history.push("/"); // I think best practice here will be to hard-redirect instead of just changing components.
@@ -33,6 +37,7 @@ const LoginForm = (props) => {
 
     return (
         <div className="form-group">
+            <p className="text-danger">{loginErrors?.msg}</p>
             <input type="text" name="userEmail" className="form-control" id="userEmail" placeholder="Email: someone@somewhere.com" onChange={ (e) => onChangeHandler(e) } />
             <input type="password" name="userPassword" className="form-control" id="userPassword" placeholder="Password" onChange={ (e) => onChangeHandler(e) } />
 

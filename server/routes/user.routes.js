@@ -12,7 +12,7 @@ module.exports = function(app) {
     app.post('/api/users/register', UserController.register);
     app.put('/api/users/:_id', UserController.updateUser);
     app.delete('/api/users/:_id/delete', UserController.deleteUser);
-    app.get('/api/users/login', UserController.login)
+    app.post('/api/users/login', UserController.login)
     app.get('/api/users/:_id', UserController.getUser)
 
     

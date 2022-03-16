@@ -38,8 +38,9 @@ module.exports.login = async (req, res) => {
 
     if (user === null) {
         // only true when user email not registered in database
+        console.log("user does not exist")
         console.log("user:", user)
-        return res.sendStatus(400);
+        return res.json({ msg: "User Login does not exist. Please try again, or Create an Account." });
     }
 
     //only makes it here if we found a user by their email
@@ -48,7 +49,7 @@ module.exports.login = async (req, res) => {
     if (!correctPassword) {
         // password doesn't match database
         console.log("bad password error")
-        return res.sendStatus(400);
+        return res.json({ msg: "Password is incorrect" });
     }
 
     // if passwords matched, create user token
