@@ -7,28 +7,29 @@ const bcrypt = require('bcrypt');
 
 // Create new User
 module.exports.register = (req, res) => {
-    // const { firstName, lastName, userEmail, userPassword, confirmPassword } = req.body;
-    // User.create({
-    //     firstName,
-    //     lastName,
-    //     userEmail,
-    //     userPassword,
-    //     confirmPassword
-    // })
-    User.create(req.body)
-        // .then(user => res.json(user))
-        .then(user => {
-            const userToken = jwt.sign({
-                id: user._id
-            }, process.env.SECRET_KEY);
-
-            res
-                .cookie("usertoken", userToken, process.env.SECRET_KEY, {
-                    httpOnly: true
+    User.find({ userEmail: req.body.userEmail })
+        .then(usersWithMatchingEmail => {
+            // if no users already exist in the DB, then register the user info.
+            if (usersWithMatchingEmail.length === 0) {
+                User.create(req.body)
+                .then(user => {
+                    const userToken = jwt.sign({
+                        id: user._id
+                    }, process.env.SECRET_KEY);
+        
+                    res
+                        .cookie("usertoken", userToken, process.env.SECRET_KEY, {
+                            httpOnly: true
+                        })
+                        .json({ msg: "success!", user: user });
                 })
-                .json({ msg: "success!", user: user });
+                .catch(err => res.json(err));
+            } else {
+                res.json({ errors: {matchingEmail: { message: "This email is already in use." }} });
+                console.log("This email address is already in use.")
+            }
         })
-        .catch(err => res.json(err));
+        .catch(err => console.log("error:", err));
 }
 
 // Login
@@ -37,6 +38,7 @@ module.exports.login = async (req, res) => {
 
     if (user === null) {
         // only true when user email not registered in database
+        console.log("user:", user)
         return res.sendStatus(400);
     }
 
@@ -45,6 +47,7 @@ module.exports.login = async (req, res) => {
 
     if (!correctPassword) {
         // password doesn't match database
+        console.log("bad password error")
         return res.sendStatus(400);
     }
 
@@ -90,6 +93,13 @@ module.exports.updateUser = (req, res) => {
 // delete user
 module.exports.deleteUser = (req, res) => {
     User.deleteOne({ _id: req.params._id })
+        .then(deleteConfirmation => res.json(deleteConfirmation))
+        .catch(err => res.json(err));
+}
+
+// temporary delete-all for cleaning up all my test entries
+module.exports.deleteAllUsers = (req, res) => {
+    User.deleteMany({})
         .then(deleteConfirmation => res.json(deleteConfirmation))
         .catch(err => res.json(err));
 }

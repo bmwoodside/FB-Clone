@@ -75,7 +75,7 @@ const SignupForm = (props) => {
                             : null
                     }
                     <input type="text" name="userEmail" className="form-control" onChange={ (e) => {onChangeHandler(e); e.target.value.length < 5 ? setEmailError("Email must have at least 5 characters") : setEmailError("");} } id="userEmail" placeholder="Email (e.g. 'Someone@somewhere.com')" />
-                    <p className="text-danger">{formErrors.userEmail?.message}</p>
+                    <p className="text-danger">{formErrors.userEmail?.message || formErrors.matchingEmail?.message}</p>
                 </div>
 
                 <div className="form-group">
