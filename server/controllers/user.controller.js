@@ -1,6 +1,9 @@
 const { response, request } = require('express');
 const { User } = require('../models/user.model');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
+// cookie is names "usertoken" (all lower case - definitely will forget this).
 
 // Create new User
 module.exports.register = (req, res) => {

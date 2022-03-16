@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalTitle, ModalBody } from "react-bootstrap";
 import SignupForm from "./SignupForm";
+import axios from "axios";
 
 const LoginForm = (props) => {
     const history = useHistory();
@@ -22,14 +23,18 @@ const LoginForm = (props) => {
     const handleLogin = (e) => {
         // validate then axios call to submit.
         e.preventDefault()
+        // axios.get("http://localhost:8000/api/users/:_id", tempLogin)
+        axios.get("http://localhost:8000/api/users/login", tempLogin)
+            .then(res => console.log(res))
+            .catch(err => console.log("get account error", err))
 
-        history.push("/"); // I think best practice here will be to hard-redirect instead of just changing components.
+        // history.push("/"); // I think best practice here will be to hard-redirect instead of just changing components.
     }
 
     return (
-        <div className="login-card">
-            <input type="text" name="emailInput" id="login-email-field" placeholder="Email: someone@somewhere.com" onChange={ (e) => onChangeHandler(e) } />
-            <input type="text" name="passwordInput" id="login-password-field" placeholder="Password" onChange={ (e) => onChangeHandler(e) } />
+        <div className="form-group">
+            <input type="text" name="userEmail" className="form-control" id="userEmail" placeholder="Email: someone@somewhere.com" onChange={ (e) => onChangeHandler(e) } />
+            <input type="password" name="userPassword" className="form-control" id="userPassword" placeholder="Password" onChange={ (e) => onChangeHandler(e) } />
 
             <Button variant="primary" onClick={handleLogin}>Log In</Button>
 
