@@ -31,7 +31,7 @@ const LoginForm = (props) => {
                 if (res.data.error) {
                     setLoginErrors(res.data)
                 } else {
-                    // history.push("/"); // I think best practice here will be to hard-redirect instead of just changing components.
+                    history.push("/"); // I think best practice here will be to hard-redirect instead of just changing components.
                 }
                 
             })

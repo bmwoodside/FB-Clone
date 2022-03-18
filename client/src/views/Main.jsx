@@ -21,10 +21,9 @@ const Main = (props) => {
                 }
             })
             .catch(err => {
-                history.push("/")
-                console.log('error when getting logged in user', err)
+                history.push("/test")
+                // console.log('error when getting logged in user', err)
             })
-            // .catch(() => history.push("/"))
     }, [])
 
     useEffect(() => {
