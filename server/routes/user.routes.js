@@ -10,10 +10,12 @@ module.exports = function(app) {
     app.delete('/api/users/deleteAll', UserController.deleteAllUsers)
 
     app.post('/api/users/register', UserController.register);
-    app.put('/api/users/:_id', UserController.updateUser);
-    app.delete('/api/users/:_id/delete', UserController.deleteUser);
     app.post('/api/users/login', UserController.login)
-    app.get('/api/users/:_id', UserController.getUser)
+    app.get('/api/users/getLoggedInUser', UserController.getLoggedInUser)
+    
+    // app.put('/api/users/:_id', UserController.updateUser);
+    // app.delete('/api/users/:_id/delete', UserController.deleteUser);
+    // app.get('/api/users/:_id', UserController.getUser)
 
     
 }

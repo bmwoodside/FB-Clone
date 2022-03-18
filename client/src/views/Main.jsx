@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import './main.css'
 import NavLeft from "../components/NavLeft";
 import NavRight from "../components/NavRight";
@@ -8,6 +8,24 @@ import axios from 'axios';
 
 const Main = (props) => {
     const [allPosts, setAllPosts] = useState([]);
+    const [user, setUser] = useState({}); // will have all info ( firstName, lastName, email, hashedpassword... consider destructuring backend response before sending forward.)
+
+    const history = useHistory();
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/api/users/getLoggedInUser', { withCredentials: true })
+            .then(res => {
+                console.log('response when getting logged in user', res.data);
+                if (res.data.results) { //returns entire user object from the DB (consider destructuring in DB response)
+                    setUser(res.data.results);
+                }
+            })
+            .catch(err => {
+                history.push("/")
+                console.log('error when getting logged in user', err)
+            })
+            // .catch(() => history.push("/"))
+    }, [])
 
     useEffect(() => {
         axios.get(`http://localhost:8000/api/posts/getall`)
@@ -17,7 +35,6 @@ const Main = (props) => {
             })
             .catch(err => console.log(err));
     }, [])
-
 
     return (
         <div className="wrapper">

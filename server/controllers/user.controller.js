@@ -40,7 +40,7 @@ module.exports.login = async (req, res) => {
         // only true when user email not registered in database
         console.log("user does not exist")
         console.log("user:", user)
-        return res.json({ msg: "User Login does not exist. Please try again, or Create an Account." });
+        return res.json({ error: "User Login does not exist. Please try again, or Create an Account." });
     }
 
     //only makes it here if we found a user by their email
@@ -49,7 +49,7 @@ module.exports.login = async (req, res) => {
     if (!correctPassword) {
         // password doesn't match database
         console.log("bad password error")
-        return res.json({ msg: "Password is incorrect" });
+        return res.json({ error: "Password is incorrect" });
     }
 
     // if passwords matched, create user token
@@ -68,6 +68,17 @@ module.exports.login = async (req, res) => {
 module.exports.logout = (req, res) => {
     res.clearCookie('usertoken');
     res.sendStatus(200);
+}
+
+// get logged-in user from cookie data and query db to find user by ID.
+module.exports.getLoggedInUser = (req, res) => {
+    const decodedJWT = jwt.decode(req.cookies.usertoken, { complete: true })
+    // decodedJWT.payload.id
+    User.findOne({ _id: decodedJWT.payload.id })
+        .then(foundUser => {
+            res.json({ results: foundUser })
+        })
+        .catch(err => res.json(err));
 }
 
 // get all users

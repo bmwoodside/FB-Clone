@@ -25,19 +25,22 @@ const LoginForm = (props) => {
         // validate then axios call to submit.
         e.preventDefault()
         console.log(tempLogin)
-        axios.post("http://localhost:8000/api/users/login", tempLogin, {withCredentials:true})
+        axios.post("http://localhost:8000/api/users/login", tempLogin, {withCredentials: true})
             .then(res => {
                 console.log("response when logging in", res)
-                setLoginErrors(res.data)
+                if (res.data.error) {
+                    setLoginErrors(res.data)
+                } else {
+                    // history.push("/"); // I think best practice here will be to hard-redirect instead of just changing components.
+                }
+                
             })
             .catch(err => console.log("get account error", err))
-
-        // history.push("/"); // I think best practice here will be to hard-redirect instead of just changing components.
     }
 
     return (
         <div className="form-group">
-            <p className="text-danger">{loginErrors?.msg}</p>
+            <p className="text-danger">{loginErrors?.error}</p>
             <input type="text" name="userEmail" className="form-control" id="userEmail" placeholder="Email: someone@somewhere.com" onChange={ (e) => onChangeHandler(e) } />
             <input type="password" name="userPassword" className="form-control" id="userPassword" placeholder="Password" onChange={ (e) => onChangeHandler(e) } />
 
