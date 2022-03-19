@@ -53,7 +53,7 @@ const LoginForm = (props) => {
             <Button variant="success" onClick={handleShow}>Create New Account</Button>
 
 
-            {/* stuff */}
+            {/* Modal Registration stuff */}
             <Modal show={show} onHide={handleClose} backdrop="static" centered>
                 <ModalHeader closeButton>
                     <ModalTitle>Sign Up<h5>It's quick and easy.</h5></ModalTitle>
