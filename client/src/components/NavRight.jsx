@@ -1,6 +1,16 @@
+import axios from "axios";
 
 
 const NavRight = (props) => {
+
+    const LogoutUser = () => {
+        axios.get("http://localhost:8000/api/users/logout", {withCredentials: true})
+            .then(res => {
+                console.log("logged out user", res)
+                props.setIsLoginAttempt(false);
+            })
+            .catch(err => console.log("some error, apparently:", err))
+    }
 
 
     return (
@@ -8,9 +18,15 @@ const NavRight = (props) => {
             <div className="body-nav-right-top">
                 <div className="info-card">
                     <div className="info-card-row1">
+
+                        
+                    {/* I'm a temp button to handle logging out for now, delete me before production! */}
+                    <div><button className="btn btn-danger" onClick={LogoutUser}>Logout</button></div>
+
                         <span>ico Birthdays</span>
                         <span><button className="btn-small btn-danger">X</button></span>
                     </div>
+
                     <p>
                         <strong>NAME</strong>'s birthday is today.
                     </p>

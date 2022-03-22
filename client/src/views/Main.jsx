@@ -20,13 +20,13 @@ const Main = (props) => {
                 }
             })
             .catch(err => {
-                console.log('error when getting logged in user', err)
+                // console.log('error when getting logged in user', err)
             })
     }, [isLoginAttempt])
 
     return (
         <>
-            {!user ? 
+            {!isLoginAttempt ? 
                 <div className="wrapper">
                     <LoginForm setIsLoginAttempt={setIsLoginAttempt} />
                 </div>

@@ -11,6 +11,7 @@ module.exports = function(app) {
 
     app.post('/api/users/register', UserController.register);
     app.post('/api/users/login', UserController.login)
+    app.get('/api/users/logout', UserController.logout)
     app.get('/api/users/getLoggedInUser', UserController.getLoggedInUser)
     
     // app.put('/api/users/:_id', UserController.updateUser);
