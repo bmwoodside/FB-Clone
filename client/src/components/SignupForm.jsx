@@ -39,6 +39,7 @@ const SignupForm = (props) => {
                         setFormErrors(res.data.errors)
                     } else {
                         // redirect to main content.
+                        props.setIsLoginAttempt(true);
                     }
                 })
                 .catch(err => console.log(err))

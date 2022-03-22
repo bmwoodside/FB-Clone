@@ -1,4 +1,5 @@
 import './main.css'
+import Nav from './Nav';
 import NavLeft from "../components/NavLeft";
 import NavMid from "../components/NavMid";
 import NavRight from "../components/NavRight";
@@ -9,6 +10,7 @@ import LoginForm from "../components/LoginForm";
 
 const Main = (props) => {
     const [user, setUser] = useState(null); // will have all info ( firstName, lastName, email, hashedpassword... consider destructuring backend response before sending forward.)
+    const [isLoginAttempt, setIsLoginAttempt] = useState(false); // can I set this in the dependency array to refresh the component state after login?
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/users/getLoggedInUser', { withCredentials: true })
@@ -20,19 +22,20 @@ const Main = (props) => {
             .catch(err => {
                 console.log('error when getting logged in user', err)
             })
-    }, [])
+    }, [isLoginAttempt])
 
     return (
         <>
             {!user ? 
                 <div className="wrapper">
-                    <LoginForm />
+                    <LoginForm setIsLoginAttempt={setIsLoginAttempt} />
                 </div>
             : 
                 <div className="wrapper">
+                    {/* <Nav /> */}
                     <NavLeft />
-                    <NavMid />
-                    <NavRight />
+                    <NavMid user={user} />
+                    <NavRight setIsLoginAttempt={setIsLoginAttempt}/>
                 </div>
             }
         </>

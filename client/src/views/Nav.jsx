@@ -26,6 +26,7 @@ const Nav = (props) => {
                 <Link to="#"><button className="btn btn-info">bell</button></Link>
                 <Link to="#"><button className="btn btn-info">notify</button></Link>
                 <Link to="#"><button className="btn btn-info">acct</button></Link>
+                {/* add logout button here - temporarily is in nav-Right component */}
             </div>
         </div>
     )
