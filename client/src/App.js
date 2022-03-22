@@ -2,8 +2,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Main from './views/Main';
-import LoginForm from './components/LoginForm';
-
+import ViewOne from './views/ViewOne';
 
 function App() {
 
@@ -14,6 +13,10 @@ function App() {
         
         <Route exact path="/">
           <Main />
+        </Route>
+
+        <Route exact path="/:_id">
+          <ViewOne />
         </Route>
 
       </Switch>

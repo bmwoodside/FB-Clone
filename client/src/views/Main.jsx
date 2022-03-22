@@ -12,8 +12,8 @@ const Main = (props) => {
     const [user, setUser] = useState(null); // will have all info ( firstName, lastName, email, hashedpassword... consider destructuring backend response before sending forward.)
     const [isLoginAttempt, setIsLoginAttempt] = useState(false); // can I set this in the dependency array to refresh the component state after login?
 
-    useEffect(() => {
-        axios.get('http://localhost:8000/api/users/getLoggedInUser', { withCredentials: true })
+    useEffect(async () => {
+        await axios.get('http://localhost:8000/api/users/getLoggedInUser', { withCredentials: true })
             .then(res => {
                 if (res.data.results) { //returns entire user object from the DB (consider destructuring in DB response)
                     setUser(res.data.results);
@@ -32,7 +32,7 @@ const Main = (props) => {
                 </div>
             : 
                 <div className="wrapper">
-                    {/* <Nav /> */}
+                    <Nav user={user} />
                     <NavLeft />
                     <NavMid user={user} />
                     <NavRight setIsLoginAttempt={setIsLoginAttempt}/>
