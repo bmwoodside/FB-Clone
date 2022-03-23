@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalTitle, ModalBody } from "react-bootstrap";
 import SignupForm from "./SignupForm";
 import axios from "axios";
+import { UserContext } from "./UserContext";
 
 const LoginForm = (props) => {
     const history = useHistory();
     const [tempLogin, setTempLogin] = useState({});
     const [loginErrors, setLoginErrors] = useState({});
+
+    // testing useContext
+    const { user, setUser } = useContext(UserContext);
 
     // state for handling Modal component.
     const [show, setShow] = useState(false);
@@ -24,14 +28,22 @@ const LoginForm = (props) => {
     const handleLogin = (e) => {
         // validate then axios call to submit.
         e.preventDefault()
-        console.log(tempLogin)
         axios.post("http://localhost:8000/api/users/login", tempLogin, {withCredentials: true})
             .then(res => {
                 console.log("response when logging in", res)
                 if (res.data.error) {
                     setLoginErrors(res.data)
                 } else {
-                    props.setIsLoginAttempt(true);
+                    // props.setIsLoginAttempt(true);
+                    // setUser(res.data)
+
+                    axios.get("http://localhost:8000/api/users/getLoggedInUser", {withCredentials: true})
+                        .then(res => {
+                            if (res.data.results) {
+                                setUser(res.data.results);
+                            }
+                        })
+                        .catch(err => console.log("Error checking userToken in LoginForm", err))
                 }
                 
             })

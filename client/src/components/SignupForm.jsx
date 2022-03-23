@@ -1,7 +1,8 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { UserContext } from "./UserContext";
 
 const SignupForm = (props) => {
     const history = useHistory();
@@ -10,6 +11,8 @@ const SignupForm = (props) => {
         lastName: "",
         userPassword: ""
     });
+
+    const { user, setUser } = useContext(UserContext);
 
     // front-end "validations" errors... trying to catch before user submits bad data to backend.
     const [firstNameError, setFirstNameError] = useState("");
@@ -40,7 +43,8 @@ const SignupForm = (props) => {
                         setFormErrors(res.data.errors)
                     } else {
                         // redirect to main content.
-                        props.setIsLoginAttempt(true);
+                        // props.setIsLoginAttempt(true);
+                        setUser(res.data.user)
                     }
                 })
                 .catch(err => console.log(err))
