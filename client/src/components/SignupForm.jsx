@@ -28,7 +28,8 @@ const SignupForm = (props) => {
         })
     }
 
-    const submitForm = () => {
+    const submitForm = (e) => {
+        e.preventDefault();
         //validate form, submit to DB, redirect
         userForm.firstName.length >=1 && userForm.lastName.length >= 1 && userForm.userPassword.length >= 3
             ? axios.post("http://localhost:8000/api/users/register", userForm, {withCredentials: true})
@@ -48,7 +49,7 @@ const SignupForm = (props) => {
 
     return (
         <>
-            <form>
+            <form onSubmit={submitForm}>
                 <div className="form-group">
                     {
                         firstNameError
@@ -98,9 +99,9 @@ const SignupForm = (props) => {
                     <input type="password" name="confirmPassword" className="form-control" onChange={ (e) => {onChangeHandler(e); e.target.value !== userForm.userPassword ? setConfirmPasswordError("Passwords must match.") : setConfirmPasswordError("");} } id="confirmPassword" placeholder="Confirm Password" />
                     <p className="text-danger">{formErrors.confirmPassword?.message}</p>
                 </div>
+                <Button variant="secondary mt-2" onClick={props.handleClose}>Close</Button>
+                <Button variant="success mt-2" type="submit">Sign Up</Button>
             </form>
-            <Button variant="secondary mt-2" onClick={props.handleClose}>Close</Button>
-            <Button variant="success mt-2" onClick={submitForm}>Sign Up</Button>
         </>
     )
 }

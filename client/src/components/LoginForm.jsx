@@ -40,11 +40,13 @@ const LoginForm = (props) => {
 
     return (
         <div className="form-group">
-            <p className="text-danger">{loginErrors?.error}</p>
-            <input type="text" name="userEmail" className="form-control" id="userEmail" placeholder="Email: someone@somewhere.com" onChange={ (e) => onChangeHandler(e) } />
-            <input type="password" name="userPassword" className="form-control" id="userPassword" placeholder="Password" onChange={ (e) => onChangeHandler(e) } />
+            <form onSubmit={handleLogin}>
+                <p className="text-danger">{loginErrors?.error}</p>
+                <input type="text" name="userEmail" className="form-control" id="userEmail" placeholder="Email: someone@somewhere.com" onChange={ (e) => onChangeHandler(e) } />
+                <input type="password" name="userPassword" className="form-control" id="userPassword" placeholder="Password" onChange={ (e) => onChangeHandler(e) } />
 
-            <Button variant="primary" onClick={handleLogin}>Log In</Button>
+                <Button type="submit" variant="primary" >Log In</Button>
+            </form>
 
             <a href="#">Forgot password?</a>
 
