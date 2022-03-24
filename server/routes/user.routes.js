@@ -9,6 +9,9 @@ module.exports = function(app) {
     // route is to DELETE ALL Users - testing purposes only (DB cleanup)
     app.delete('/api/users/deleteAll', UserController.deleteAllUsers)
 
+    // // temp route to use Faker for user generation
+    // app.post('/api/user/registerFaker', UserController.registerFaker)
+
     app.post('/api/users/register', UserController.register);
     app.post('/api/users/login', UserController.login)
     app.get('/api/users/logout', UserController.logout)
@@ -17,6 +20,4 @@ module.exports = function(app) {
     // app.put('/api/users/:_id', UserController.updateUser);
     // app.delete('/api/users/:_id/delete', UserController.deleteUser);
     app.get('/api/users/:_id', UserController.getUser)
-
-    
 }

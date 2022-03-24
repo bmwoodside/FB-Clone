@@ -115,3 +115,34 @@ module.exports.deleteAllUsers = (req, res) => {
         .then(deleteConfirmation => res.json(deleteConfirmation))
         .catch(err => res.json(err));
 }
+
+// faker user creator
+// const { faker } = require('@faker-js/faker');
+
+// module.exports.registerFaker = (req, res) => {
+//     for (let i=0; i<100; i++) {
+//         let FakerUser = {
+//             firstName: faker.name.firstName(),
+//             lastName: faker.name.lastName(),
+//             userEmail: faker.internet.email(),
+//             userPassword: "12345",
+//             confirmPassword: "12345"
+//         };
+
+//         User.find({ userEmail: FakerUser.userEmail })
+//             .then(usersWithMatchingEmail => {
+//                 // if no users already exist in the DB, then register the user info.
+//                 if (usersWithMatchingEmail.length === 0) {
+//                     User.create(FakerUser)
+//                         .then(user => console.log(user))
+//                         .catch(err => res.json(err));
+
+//                         res.json({msg: "done!"})
+//                 } else {
+//                     res.json({ errors: { matchingEmail: { message: "This email is already in use." } } });
+//                     console.log("This email address is already in use.")
+//                 }
+//             })
+//             .catch(err => console.log("error:", err));
+//     }
+// }
