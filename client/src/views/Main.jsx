@@ -49,7 +49,14 @@ const Main = (props) => {
 // }
 
     return (
-        <h1>Something</h1>
+        // <h1>Something's First Name: {user.firstName}</h1>
+        <div className="wrapper">
+            {/* <Nav /> */}
+            <NavLeft />
+            <NavMid />
+            <NavRight />
+        </div>
+
     )
 
 }

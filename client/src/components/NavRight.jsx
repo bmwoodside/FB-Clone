@@ -1,13 +1,18 @@
 import axios from "axios";
+import { useContext } from "react";
+import { UserContext } from "./UserContext";
 
 
 const NavRight = (props) => {
+
+    const { user, setUser } = useContext(UserContext);
 
     const LogoutUser = () => {
         axios.get("http://localhost:8000/api/users/logout", {withCredentials: true})
             .then(res => {
                 console.log("logged out user", res)
-                props.setIsLoginAttempt(false);
+                // props.setIsLoginAttempt(false);
+                setUser(null);
             })
             .catch(err => console.log("some error, apparently:", err))
     }
