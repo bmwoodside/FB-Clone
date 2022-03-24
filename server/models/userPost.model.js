@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const UserPostSchema = new mongoose.Schema ({
     userPostedBy: {
         type: String,
-        required: [true, "ID posted_by requried."],
+        required: [true, "Name posted_by requried - Server Get Error."],
+    },
+    idPostedBy: {
+        type: String,
+        required: [true, "ID Posted By Required. Server Get Error"]
     },
     userPostContent: {
         type: String,

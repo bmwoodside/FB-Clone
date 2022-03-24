@@ -11,7 +11,7 @@ const Main = (props) => {
 
             <CreatePost />
 
-            {/* <ViewPosts /> */}
+            <ViewPosts />
 
         </div>
     )

@@ -3,8 +3,9 @@ const { UserPost } = require('../models/userPost.model');
 
 // Create a new Post
 module.exports.createPost = (req, res) => {
-    const { userPostedBy, userPostContent, userPostMediaContent, userPostLikedUsers, userPostUserComments } = req.body;
+    const { idPostedBy, userPostedBy, userPostContent, userPostMediaContent, userPostLikedUsers, userPostUserComments } = req.body;
     UserPost.create({
+        idPostedBy,
         userPostedBy,
         userPostContent,
         userPostMediaContent,
@@ -17,7 +18,7 @@ module.exports.createPost = (req, res) => {
 
 // get all posts
 module.exports.getAllPosts = (req, res) => {
-    UserPost.find({})
+    UserPost.find().sort([[ 'updatedAt', -1 ]])
         .then(userPost => res.json(userPost))
         .catch(err => res.json(err));
 }
@@ -39,6 +40,13 @@ module.exports.updateSinglePost = (req, res) => {
 // delete single post
 module.exports.deletePost = (req, res) => {
     UserPost.deleteOne({ _id: req.params._id })
+        .then(deleteConfirmation => res.json(deleteConfirmation))
+        .catch(err => res.json(err));
+}
+
+// temporary delete-all for cleaning up all my test entries
+module.exports.deleteAllPosts = (req, res) => {
+    UserPost.deleteMany({})
         .then(deleteConfirmation => res.json(deleteConfirmation))
         .catch(err => res.json(err));
 }

@@ -7,7 +7,8 @@ const CreatePost = (props) => {
     const { user } = useContext(UserContext);
     let placeholderText = `What's on your mind, ${user.firstName}`;
     const [statusUpdate, setStatusUpdate] = useState({
-        userPostedBy: user._id,
+        idPostedBy: user._id,
+        userPostedBy: user.firstName + " " + user.lastName[0] + ".",
         userPostContent: ""
     });
 
@@ -20,7 +21,7 @@ const CreatePost = (props) => {
 
     const statusSubmitHandler = (e) => {
         e.preventDefault();
-        // some axios call here.
+        
         axios.post("http://localhost:8000/api/posts/create", statusUpdate, {withCredentials: true})
             .then(res => {
                 console.log("res from successful post", res)
