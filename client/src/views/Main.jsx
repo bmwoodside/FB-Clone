@@ -13,9 +13,9 @@ const Main = (props) => {
     return (
         <div className="wrapper">
             {/* <Nav /> */}
-            {/* <NavLeft /> */}
+            <NavLeft />
             <NavMid />
-            {/* <NavRight /> */}
+            <NavRight />
         </div>
 
     )

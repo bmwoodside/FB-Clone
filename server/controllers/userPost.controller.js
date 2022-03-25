@@ -23,6 +23,13 @@ module.exports.getAllPosts = (req, res) => {
         .catch(err => res.json(err));
 }
 
+// get all posts by UserID
+module.exports.getAllPostsByUserID = (req, res) => {
+    UserPost.find({ idPostedBy: req.params._id }).sort([[ 'updatedAt', -1 ]])
+        .then(allUserPosts => res.json(allUserPosts))
+        .catch(err => res.json(err));
+}
+
 // get single post
 module.exports.getSinglePost = (req, res) => {
     UserPost.findOne({ _id: req.params._id })

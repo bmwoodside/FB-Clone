@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../UserContext";
+import { Link } from "react-router-dom";
 
 const ViewPosts = (props) => {
     const [allPosts, setAllPosts] = useState([]);
@@ -16,10 +17,12 @@ const ViewPosts = (props) => {
                 setAllPosts(res.data);
             })
             .catch(err => console.log(err));
-    }, [])
+    }, [allPosts])
 
     const onePostCommentSubmitHandler = (e) => {
         e.preventDefault();
+
+        //todo: fix adding comments
         // axios.put(`http://localhost:8000/api/posts/${oneComment.postID}`, oneComment)
         //     .then( res => {
         //         console.log("res from successful comment post", res)
@@ -37,7 +40,7 @@ const ViewPosts = (props) => {
                     <div className="content-card-profile-row">
                         {/* <span>ico<img src="" alt="." className="content-profile-picture" /></span> */}
                         <div className="name-field-container">
-                            <h4>{onePost.userPostedBy}</h4>
+                            <h4><Link to={`/${onePost.idPostedBy}`}>{onePost.userPostedBy}</Link></h4>
                             {/* <span>time | public?</span> */}
                         </div>
                         <div className="content-card-options">
@@ -63,19 +66,19 @@ const ViewPosts = (props) => {
                     <div className="content-card-bottom-buttons">
                         <div className="content-card-button-actions">
                             <div className="content-card-action-buttons">
-                                <img alt="." />👍 Like
+                            <button className="btn btn-info btn-sm">👍 Like</button>
                             </div>
                         </div>
 
                         <div className="content-card-button-actions">
                             <div className="content-card-action-buttons">
-                                <img alt="." /> Comment
+                            <button className="btn btn-info btn-sm">🐱‍💻 Comment</button>
                             </div>
                         </div>
 
                         <div className="content-card-button-actions">
                             <div className="content-card-action-buttons">
-                                <img alt="." /> Share
+                            <button className="btn btn-info btn-sm">🎁 Share</button>
                             </div>
                         </div>
                     </div>

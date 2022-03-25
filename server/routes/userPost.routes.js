@@ -10,5 +10,6 @@ module.exports = function(app) {
     app.delete('/api/posts/:_id/delete', UserPostController.deletePost);
     app.get('/api/posts/getSinglePost/:_id', UserPostController.getSinglePost);
     app.get('/api/posts/getall', UserPostController.getAllPosts);
+    app.get('/api/posts/getAllPostsByUserId/:_id', UserPostController.getAllPostsByUserID);
 
 }

@@ -8,7 +8,7 @@ const CreatePost = (props) => {
     let placeholderText = `What's on your mind, ${user.firstName}`;
     const [statusUpdate, setStatusUpdate] = useState({
         idPostedBy: user._id,
-        userPostedBy: user.firstName + " " + user.lastName[0] + ".",
+        userPostedBy: user.firstName + " " + user.lastName,
         userPostContent: ""
     });
 
@@ -46,18 +46,18 @@ const CreatePost = (props) => {
             <hr />
 
             <div className="status-update-bottom">
-                <div className="status-update-bottom-button">
-                    <img src="" alt="ico"/>
+                <div className="btn btn-light btn-sm">
+                    🎥
                     <span>Live Video</span>
                 </div>
 
-                <div className="status-update-bottom-button">
-                    <img src="" alt="ico"/>
+                <div className="btn btn-light btn-sm">
+                    🎞
                     <span>Photo/Video</span>
                 </div>
 
-                <div className="status-update-bottom-button">
-                    <img src="" alt="ico"/>
+                <div className="btn btn-light btn-sm">
+                    😀
                     <span>Feeling/Activity</span>
                 </div>
             </div>

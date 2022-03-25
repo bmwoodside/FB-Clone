@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { UserContext } from "./UserContext";
 
 
@@ -22,14 +23,11 @@ const NavRight = (props) => {
         <div className="body-nav-right">
             <div className="body-nav-right-top">
                 <div className="info-card">
-                    <div className="info-card-row1">
-
-                        
                     {/* I'm a temp button to handle logging out for now, delete me before production! */}
-                    <div><button className="btn btn-danger" onClick={LogoutUser}>Logout</button></div>
-
-                        <span>ico Birthdays</span>
-                        <span><button className="btn-small btn-danger">X</button></span>
+                    <button className="btn btn-danger mb-2" onClick={LogoutUser}>Logout</button>
+                    <div className="info-card-row1">
+                        <h5>🎂 Birthdays:</h5>
+                        <p><button className="btn-small btn-danger">X</button></p>
                     </div>
 
                     <p>
@@ -44,18 +42,21 @@ const NavRight = (props) => {
                 <div className="body-nav-right-bottom-header">
                     <span>Contacts</span>
                     <span>
-                        <button className="btn-small btn-info">cam</button>
-                        <button className="btn-small btn-info">search</button>
-                        <button className="btn-small btn-info">...</button>
+                        <button className="btn-sm btn-info">cam</button>
+                        <button className="btn-sm btn-info">search</button>
+                        <button className="btn-sm btn-info">...</button>
                     </span>
                 </div>
 
                 {/* map list of contacts that are online here */}
-                <button className="btn btn-info">ico Name</button>
-                <button className="btn btn-info">ico Name</button>
-                <button className="btn btn-info">ico Name</button>
-                <button className="btn btn-info">ico Name</button>
-                <button className="btn btn-info">... etc</button>
+                <button className="btn btn-light">👩 Name</button>
+                <button className="btn btn-light">👩 Name</button>
+                <button className="btn btn-light">👩 Name</button>
+                <button className="btn btn-light">👩 Name</button>
+                <button className="btn btn-light">... etc</button>
+                {user.userFriends.map((oneFriend, i) =>
+                    <Link to={`/${oneFriend._id}`} key={i}><button className="btn btn-light">👩 {oneFriend.firstName + " " + oneFriend.lastName}</button></Link>
+                )}
             </div>
         </div>
     )
