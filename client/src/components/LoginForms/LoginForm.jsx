@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalTitle, ModalBody } from "react-bootstrap";
 import SignupForm from "./SignupForm";
 import axios from "axios";
-import { UserContext } from "./UserContext";
+import { UserContext } from "../UserContext";
 
 const LoginForm = (props) => {
     const history = useHistory();

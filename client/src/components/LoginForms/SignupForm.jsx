@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { UserContext } from "./UserContext";
+import { UserContext } from "../UserContext";
 
 const SignupForm = (props) => {
     const history = useHistory();

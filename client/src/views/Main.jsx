@@ -1,8 +1,8 @@
 import './main.css'
-import Nav from './Nav';
-import NavLeft from "../components/NavLeft";
-import NavMid from "../components/NavMid";
-import NavRight from "../components/NavRight";
+import NavTop from '../components/Nav/NavTop';
+import NavLeft from "../components/Nav/NavLeft";
+import NavMid from "../components/Nav/NavMid";
+import NavRight from "../components/Nav/NavRight";
 import { useContext } from "react";
 import { UserContext } from '../components/UserContext';
 
@@ -12,7 +12,7 @@ const Main = (props) => {
 
     return (
         <div className="wrapper">
-            {/* <Nav /> */}
+            {/* <NavTop /> */}
             <NavLeft />
             <NavMid />
             <NavRight />
