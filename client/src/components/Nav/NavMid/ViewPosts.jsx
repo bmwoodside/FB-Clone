@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../../UserContext";
 import { Link } from "react-router-dom";
 
 const ViewPosts = (props) => {
@@ -72,13 +72,13 @@ const ViewPosts = (props) => {
 
                         <div className="content-card-button-actions">
                             <div className="content-card-action-buttons">
-                            <button className="btn btn-info btn-sm">🐱‍💻 Comment</button>
+                            <button className="btn btn-info btn-sm" disabled>🐱‍💻 Comment</button>
                             </div>
                         </div>
 
                         <div className="content-card-button-actions">
                             <div className="content-card-action-buttons">
-                            <button className="btn btn-info btn-sm">🎁 Share</button>
+                            <button className="btn btn-info btn-sm" disabled>🎁 Share</button>
                             </div>
                         </div>
                     </div>

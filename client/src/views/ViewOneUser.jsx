@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { UserContext } from '../components/UserContext';
 
-const ViewOne = (props) => {
+const ViewOneUser = (props) => {
     const { _id } = useParams();
     const [lookupUser, setLookupUser] = useState({});
     const { user, setUser } = useContext(UserContext);
@@ -16,18 +16,22 @@ const ViewOne = (props) => {
 
         axios.get(`http://localhost:8000/api/users/${_id}`, { withCredentials: true })
             .then(res => {
-                console.log("viewing one user", res);
+                // console.log("viewing one user", res);
                 setLookupUser(res.data);
 
                 axios.get(`http://localhost:8000/api/posts/getAllPostsByUserId/${_id}`)
                     .then(userPosts => {
-                        console.log("userPosts", userPosts);
+                        // console.log("userPosts", userPosts);
                         setOneUserPosts(userPosts.data);
                     })
                     .catch(err => console.log("err getting user posts:", err));
             })
             .catch(err => console.log("oh snap an error", err));
-    }, [])
+
+        axios.put(`http://localhost:8000/api/users/${user._id}`, user)
+            .then()
+            .catch(err => console.log("error when putting user.data into the DB", err));
+    }, [user])
 
     const onePostCommentSubmitHandler = (e) => {
         e.preventDefault();
@@ -43,6 +47,25 @@ const ViewOne = (props) => {
         console.log(oneComment)
     }
 
+    function helperAddUserFriend() {
+        setUser({
+            ...user,
+            userFriends: [...user.userFriends, lookupUser._id]
+        })
+    }
+
+    function helperRemoveUserFriend() {
+        let temp = user.userFriends.filter(id => id !== lookupUser._id);
+
+        setUser({
+            ...user,
+            userFriends: temp
+        })
+    }
+
+
+
+
     return (
         <div className="view-one-user-view">
             <div className="user-info">
@@ -53,9 +76,14 @@ const ViewOne = (props) => {
                         <h4 className="user-friends-count">{lookupUser.userFriends?.length} Friends</h4>
                     </div>
                     <div className="user-friend-message-buttons">
-                        <button className="btn btn-secondary" disabled>😎 Add Friend</button>
+                        {
+                            user.userFriends.includes(lookupUser._id)
+                            ? <button className="btn btn-secondary" onClick={() => helperRemoveUserFriend()}>🚮 Remove Friend</button>
+                            : <button className="btn btn-secondary" onClick={() => helperAddUserFriend()}>😎 Add Friend</button>
+                        }
+                        {/* <button className="btn btn-secondary">😎 Add Friend</button> */}
                         <button className="btn btn-primary" disabled>🐱‍💻 Message</button>
-                        <p>*buttons temporarily disabled*</p>
+                        <p>*message button temporarily disabled*</p>
                     </div>
                 </div>
             </div>
@@ -100,13 +128,13 @@ const ViewOne = (props) => {
 
                             <div className="content-card-button-actions">
                                 <div className="content-card-action-buttons">
-                                <button className="btn btn-info btn-sm">🐱‍💻 Comment</button>
+                                <button className="btn btn-info btn-sm" disabled>🐱‍💻 Comment</button>
                                 </div>
                             </div>
 
                             <div className="content-card-button-actions">
                                 <div className="content-card-action-buttons">
-                                <button className="btn btn-info btn-sm">🎁 Share</button>
+                                <button className="btn btn-info btn-sm" disabled>🎁 Share</button>
                                 </div>
                             </div>
                         </div>
@@ -137,4 +165,4 @@ const ViewOne = (props) => {
     )
 }
 
-export default ViewOne;
+export default ViewOneUser;

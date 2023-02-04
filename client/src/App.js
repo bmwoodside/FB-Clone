@@ -1,12 +1,11 @@
 import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import './App.css';
 import Main from './views/Main';
-import ViewOne from './views/ViewOne';
+import ViewOneUser from './views/ViewOneUser';
 import { UserContext } from './components/UserContext';
 import { useContext, useEffect, useState } from 'react';
-import LoginForm from './components/LoginForm';
+import LoginForm from './components/LoginForms/LoginForm';
 
 function App() {
 
@@ -16,7 +15,7 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    console.log("use effect ran in App.js")
+    // console.log("use effect ran in App.js")
     axios.get("http://localhost:8000/api/users/getLoggedInUser", {withCredentials: true})
       .then(res => {
           if (res.data.results) {
@@ -56,7 +55,7 @@ function App() {
           <Route exact path ="/:_id">
             {
               user
-              ? <ViewOne />
+              ? <ViewOneUser />
               : <LoginForm />
             }
           </Route>
