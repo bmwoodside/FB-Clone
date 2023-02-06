@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import NavLeft from '../components/Nav/NavLeft';
 import { UserContext } from '../components/UserContext';
+import './views.css'
 
 const ViewOneUser = (props) => {
     const { _id } = useParams();
@@ -67,100 +69,105 @@ const ViewOneUser = (props) => {
 
 
     return (
-        <div className="view-one-user-view">
-            <div className="user-info">
-                <div className="user-info-top">
-                    <img src="" alt="user profile picture" id='user-profile-image' />
-                    <div className="user-name-friends">
-                        <h1 className="user-name">{lookupUser.firstName + " " + lookupUser.lastName}</h1>
-                        <h4 className="user-friends-count">{lookupUser.userFriends?.length} Friends</h4>
-                    </div>
-                    <div className="user-friend-message-buttons">
-                        {
-                            user.userFriends.includes(lookupUser._id)
-                            ? <button className="btn btn-secondary" onClick={() => helperRemoveUserFriend()}>🚮 Remove Friend</button>
-                            : <button className="btn btn-secondary" onClick={() => helperAddUserFriend()}>😎 Add Friend</button>
-                        }
-                        {/* <button className="btn btn-secondary">😎 Add Friend</button> */}
-                        <button className="btn btn-primary" disabled>🐱‍💻 Message</button>
-                        <p>*message button temporarily disabled*</p>
+        <div className="view-one-user-container">
+
+            <NavLeft />
+
+            {/* pull me out into my own component */}
+            <div className="view-one-user-view">
+                <div className="user-info">
+                    <div className="user-info-top">
+                        <img src="" alt="user profile picture" id='user-profile-image' />
+                        <div className="user-name-friends">
+                            <h1 className="user-name">{lookupUser.firstName + " " + lookupUser.lastName}</h1>
+                            <h4 className="user-friends-count">{lookupUser.userFriends?.length} Friends</h4>
+                        </div>
+                        <div className="user-friend-message-buttons">
+                            {
+                                user.userFriends.includes(lookupUser._id)
+                                ? <button className="btn btn-secondary" onClick={() => helperRemoveUserFriend()}>🚮 Remove Friend</button>
+                                : <button className="btn btn-secondary" onClick={() => helperAddUserFriend()}>😎 Add Friend</button>
+                            }
+                            {/* <button className="btn btn-secondary">😎 Add Friend</button> */}
+                            <button className="btn btn-primary" disabled>🐱‍💻 Message</button>
+                            <p>*message button temporarily disabled*</p>
+                        </div>
                     </div>
                 </div>
+
+                <hr />
+
+                <div className="one-user-posts">
+                    {oneUserPosts.map((onePost, i) =>
+                        <div key={i} className="content-card">
+                            <div className="content-card-profile-row">
+                                {/* <span>ico<img src="" alt="." className="content-profile-picture" /></span> */}
+                                <div className="name-field-container">
+                                    <h4><Link to={`/${onePost.idPostedBy}`}>{onePost.userPostedBy}</Link></h4>
+                                    {/* <span>time | public?</span> */}
+                                </div>
+                                <div className="content-card-options">
+                                    ...
+                                </div>
+                            </div>
+                            <div className="content-card-context-description m-2 mb-3">
+                                {onePost.userPostContent}
+                            </div>
+                            {/* if user posts picture */}
+                            {/* <img src="" alt="img" className="content-card-img" /> */}
+
+                            <div className="content-card-reactions">
+                                {onePost.userPostLikedUsers.length >= 1
+                                    ? <><span><img src="" alt="." className="reaction-imgs" /></span>
+                                        <span>Reactions Name and (num) others</span></>
+                                    : null
+                                }
+                            </div>
+
+                            <hr />
+
+                            <div className="content-card-bottom-buttons">
+                                <div className="content-card-button-actions">
+                                    <div className="content-card-action-buttons">
+                                        <button className="btn btn-info btn-sm">👍 Like</button>
+                                    </div>
+                                </div>
+
+                                <div className="content-card-button-actions">
+                                    <div className="content-card-action-buttons">
+                                    <button className="btn btn-info btn-sm" disabled>🐱‍💻 Comment</button>
+                                    </div>
+                                </div>
+
+                                <div className="content-card-button-actions">
+                                    <div className="content-card-action-buttons">
+                                    <button className="btn btn-info btn-sm" disabled>🎁 Share</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div className="comments-section">
+                                {/* <div className="displayed-comment">
+                                    some comment displayed here
+                                </div> */}
+                                {onePost.userPostUserComments.length >= 1
+                                    ? <a href="#">View {onePost.userPostUserComments.length} comment(s)</a>
+                                    : <p>Be the first to add a comment!</p>
+                                }
+                                <div className="comment-add-comment">
+                                    <img alt="." />
+                                    <form onSubmit={onePostCommentSubmitHandler}>
+                                        <input type="text" name="newPostComment" id="newPostComment" placeholder="Write a comment..." onChange={(e) => setOneComment({ [e.target.name]: e.target.value, postID: onePost._id, userID: user._id })} />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
             </div>
-
-            <hr />
-
-            <div className="one-user-posts">
-                {oneUserPosts.map((onePost, i) =>
-                    <div key={i} className="content-card">
-                        <div className="content-card-profile-row">
-                            {/* <span>ico<img src="" alt="." className="content-profile-picture" /></span> */}
-                            <div className="name-field-container">
-                                <h4><Link to={`/${onePost.idPostedBy}`}>{onePost.userPostedBy}</Link></h4>
-                                {/* <span>time | public?</span> */}
-                            </div>
-                            <div className="content-card-options">
-                                ...
-                            </div>
-                        </div>
-                        <div className="content-card-context-description m-2 mb-3">
-                            {onePost.userPostContent}
-                        </div>
-                        {/* if user posts picture */}
-                        {/* <img src="" alt="img" className="content-card-img" /> */}
-
-                        <div className="content-card-reactions">
-                            {onePost.userPostLikedUsers.length >= 1
-                                ? <><span><img src="" alt="." className="reaction-imgs" /></span>
-                                    <span>Reactions Name and (num) others</span></>
-                                : null
-                            }
-                        </div>
-
-                        <hr />
-
-                        <div className="content-card-bottom-buttons">
-                            <div className="content-card-button-actions">
-                                <div className="content-card-action-buttons">
-                                    <button className="btn btn-info btn-sm">👍 Like</button>
-                                </div>
-                            </div>
-
-                            <div className="content-card-button-actions">
-                                <div className="content-card-action-buttons">
-                                <button className="btn btn-info btn-sm" disabled>🐱‍💻 Comment</button>
-                                </div>
-                            </div>
-
-                            <div className="content-card-button-actions">
-                                <div className="content-card-action-buttons">
-                                <button className="btn btn-info btn-sm" disabled>🎁 Share</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr />
-
-                        <div className="comments-section">
-                            {/* <div className="displayed-comment">
-                                some comment displayed here
-                            </div> */}
-                            {onePost.userPostUserComments.length >= 1
-                                ? <a href="#">View {onePost.userPostUserComments.length} comment(s)</a>
-                                : <p>Be the first to add a comment!</p>
-                            }
-                            <div className="comment-add-comment">
-                                <img alt="." />
-                                <form onSubmit={onePostCommentSubmitHandler}>
-                                    <input type="text" name="newPostComment" id="newPostComment" placeholder="Write a comment..." onChange={(e) => setOneComment({ [e.target.name]: e.target.value, postID: onePost._id, userID: user._id })} />
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </div>
-
-
         </div>
     )
 }

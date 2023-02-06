@@ -1,0 +1,10 @@
+
+
+.view-one-user-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.view-one-user-view {
+    width: 70vw;
+}
